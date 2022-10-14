@@ -79,9 +79,7 @@ class Comment(db.Model):
 
     find_parent_id_inblog = db.Column(db.Integer, db.ForeignKey('blog_posts.id'))
     authorof_blog = relationship("BlogPost", back_populates="children_comment")
-#
-# db.create_all()
-# db.drop_all()
+
 
 
 # TODO: new post
@@ -104,9 +102,14 @@ newpst = BlogPost(
 
 @app.route('/')
 def get_all_posts():
-    posts = BlogPost.query.all()
+    try:
+      posts = BlogPost.query.all()
+   except ProgrammingError:
+    db.create_all()
+    # db.drop_all()
 
-    return render_template("index.html", all_posts=posts)
+    else:
+      return render_template("index.html", all_posts=posts)
 
 
 @app.route('/register', methods= ["GET","POST"])

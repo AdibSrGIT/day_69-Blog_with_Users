@@ -104,9 +104,9 @@ newpst = BlogPost(
 def get_all_posts():
     try:
       posts = BlogPost.query.all()
-   except ProgrammingError:
-    db.create_all()
-    # db.drop_all()
+    except ProgrammingError:
+      db.create_all()
+      # db.drop_all()
 
     else:
       return render_template("index.html", all_posts=posts)

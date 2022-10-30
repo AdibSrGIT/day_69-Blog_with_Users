@@ -10,6 +10,7 @@ from flask_login import UserMixin, login_user, LoginManager, login_required, cur
 from forms import CreatePostForm, RegisterForm, LoginForm, CommentForm
 from flask_gravatar import Gravatar
 import os
+import sqlalchemy
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
@@ -104,7 +105,7 @@ newpst = BlogPost(
 def get_all_posts():
     try:
       posts = BlogPost.query.all()
-    except ProgrammingError:
+    except sqlalchemy.exc.ProgrammingError:
       db.create_all()
       # db.drop_all()
 

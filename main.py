@@ -95,8 +95,8 @@ newpst = BlogPost(
     img_url='https://images.unsplash.com/photo-1530482054429-cc491f61333b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1651&q=80',
     find_parent_id_user= '1'
 )
-db.session.add(newpst)
-db.session.commit()
+# db.session.add(newpst)
+# db.session.commit()
 
 
 
@@ -106,6 +106,7 @@ def get_all_posts():
     try:
       posts = BlogPost.query.all()
     except sqlalchemy.exc.ProgrammingError:
+      print('ProgrammingError encountered')
       db.create_all()
       # db.drop_all()
 
